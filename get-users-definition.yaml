@@ -1,0 +1,48 @@
+openapi: 3.0.1
+info:
+  title: Magic Ideas User API
+  description: API para manejar usuarios en Magic Ideas
+  version: 1.0.0
+paths:
+  /user:
+    post:
+      summary: Crear un nuevo usuario
+      description: Este endpoint crea un nuevo usuario.
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserBodyDto'
+      responses:
+        '201':
+          description: Usuario creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '500':
+          description: Error interno del servidor
+components:
+  schemas:
+    UserBodyDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "John Doe"
+        email:
+          type: string
+          example: "john.doe@example.com"
+    UserResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "User created successfully"
+        code:
+          type: integer
+          example: 201
+        data:
+          $ref: '#/components/schemas/UserBodyDto'
